@@ -1,4 +1,4 @@
-# personal-wakeup
+# hacs-components
 
 Umbrella repository for a Home Assistant wake-up alarm. Both parts are git
 submodules with their own CI and automatic releases:
@@ -9,7 +9,7 @@ submodules with their own CI and automatic releases:
 | [`lovelace-personal-wakeup-card`](lovelace-personal-wakeup-card/) | The Lovelace card that controls it, with a big Stop button and snooze presets. |
 
 ```bash
-git clone --recurse-submodules git@github.com:mvheimburg/personal-wakeup.git
+git clone --recurse-submodules git@github.com:mvheimburg/hacs-components.git
 ```
 
 See each submodule's README for installation, services, events and card
