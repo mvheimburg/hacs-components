@@ -4,3 +4,9 @@
 [submodule "lovelace-personal-wakeup-card"]
 	path = lovelace-personal-wakeup-card
 	url = git@github.com:mvheimburg/lovelace-personal-wakeup-card.git
+[submodule "time-for-school"]
+	path = time-for-school
+	url = git@github.com:mvheimburg/time-for-school.git
+[submodule "lovelace-time-for-school"]
+	path = lovelace-time-for-school
+	url = git@github.com:mvheimburg/lovelace-time-for-school.git
