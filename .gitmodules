@@ -1,9 +1,9 @@
 [submodule "personal_wakeup_hacs"]
-	path = personal_wakeup_hacs
-	url = git@github.com:mvheimburg/personal_wakeup_hacs.git
+	path = personal-wakeup
+	url = git@github.com:mvheimburg/personal-wakeup.git
 [submodule "lovelace-personal-wakeup-card"]
-	path = lovelace-personal-wakeup-card
-	url = git@github.com:mvheimburg/lovelace-personal-wakeup-card.git
+	path = lovelace-personal-wakeup
+	url = git@github.com:mvheimburg/lovelace-personal-wakeup.git
 [submodule "time-for-school"]
 	path = time-for-school
 	url = git@github.com:mvheimburg/time-for-school.git
