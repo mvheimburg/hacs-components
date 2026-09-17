@@ -52,7 +52,11 @@ Panel adds `group_by: area | device | none` (default area), optional
 `alarm_entity`. Device card requires `device` (ID or exact unique name).
 Visual editors expose the same options and preserve unrelated YAML keys.
 English and Norwegian Bokmål UI copy selected from HA language. Bubble CSS uses
-all shared variables named in the supplied spec; alarm/tamper remain distinct.
+`--bubble-main-background-color`, `--bubble-secondary-background-color`,
+`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-icon-border-radius`,
+`--bubble-icon-background-color`, `--bubble-sub-button-border-radius`,
+`--bubble-sub-button-background-color`, `--bubble-border`, and
+`--bubble-box-shadow`; alarm/tamper remain distinct.
 Use semantic controls, responsive layout, keyboard-accessible details and confirmation.
 
 ## Build and validation

@@ -16,3 +16,6 @@
 [submodule "lovelace-house-state"]
 	path = lovelace-house-state
 	url = git@github.com:mvheimburg/lovelace-house-state.git
+[submodule "lovelace-ajax"]
+	path = lovelace-ajax
+	url = git@github.com:mvheimburg/lovelace-ajax.git
