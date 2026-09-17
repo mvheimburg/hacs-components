@@ -7,8 +7,8 @@ is a git submodule with its own CI and automatic releases.
 
 | Submodule | What it is |
 | --- | --- |
-| [`personal-wakeup`](personal-wakeup/) | The `personal_wakeup` custom integration: sunrise light fade, Music Assistant playlist fade-in, stop / snooze / auto-off, weekday schedule, skip-next, presence check, events. |
-| [`lovelace-personal-wakeup`](lovelace-personal-wakeup/) | The Lovelace card that controls it, with a big Stop button and snooze presets. |
+| [`personal-wakeup`](personal-wakeup/) | The `personal_wakeup` custom integration: named alarms with individual weekday times, any-person-home checks, lights / music / both, stop / snooze / auto-off and skip-next. |
+| [`lovelace-personal-wakeup`](lovelace-personal-wakeup/) | The Lovelace card: daily schedule, people and output settings, with a big Stop button, snooze presets and optional Bubble appearance. |
 
 ## Time for school
 
