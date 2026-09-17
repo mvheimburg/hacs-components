@@ -17,6 +17,17 @@ is a git submodule with its own CI and automatic releases.
 | [`time-for-school`](time-for-school/) | The `time_for_school` custom integration: at a set time per weekday it turns off any number of entities (TVs, speakers) and blinks any number of lights, then restores them. |
 | [`lovelace-time-for-school`](lovelace-time-for-school/) | The Lovelace card that controls it: a weekly schedule editor, blink settings and a Stop button. |
 
+## House state
+
+| Submodule | What it is |
+| --- | --- |
+| [`house-state`](house-state/) | The `house_state` integration: a configurable tree of household states, scene inheritance, overlays and automation roles. |
+| [`lovelace-house-state`](lovelace-house-state/) | The Lovelace card: state controls, a tree editor, scene mapping and automation settings, with default and Bubble appearances. |
+
+The integration owns the state machine and scene calls; the card uses its
+entities and services. See the [approved design](docs/superpowers/specs/2026-09-17-house-state-tree.md)
+and the integration README for setup and migration from existing helpers.
+
 ```bash
 git clone --recurse-submodules git@github.com:mvheimburg/hacs-components.git
 ```

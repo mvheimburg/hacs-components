@@ -10,3 +10,9 @@
 [submodule "lovelace-time-for-school"]
 	path = lovelace-time-for-school
 	url = git@github.com:mvheimburg/lovelace-time-for-school.git
+[submodule "house-state"]
+	path = house-state
+	url = git@github.com:mvheimburg/house-state.git
+[submodule "lovelace-house-state"]
+	path = lovelace-house-state
+	url = git@github.com:mvheimburg/lovelace-house-state.git
