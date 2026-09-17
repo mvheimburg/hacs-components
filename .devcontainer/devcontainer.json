@@ -6,13 +6,22 @@
 	"image": "mcr.microsoft.com/devcontainers/base:noble",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {},
-		"ghcr.io/devcontainers/features/python:1": {}
+		"ghcr.io/devcontainers/features/python:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 	"customizations": {
 		"vscode": {
-			"extensions": [
-				"openai.chatgpt"
-			]
+		"extensions": [
+			"ms-python.python",
+			"ms-playwright.playwright",
+			"ms-python.vscode-pylance",
+			"charliermarsh.ruff",
+			"ms-toolsai.jupyter",
+			"skellock.just",
+			"Anthropic.claude-code",
+			"openai.chatgpt",
+			"ShahilKumar.docxreader"
+		]
 		}
 	}
 	// Features to add to the dev container. More info: https://containers.dev/features.
