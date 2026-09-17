@@ -19,3 +19,6 @@
 [submodule "lovelace-ajax"]
 	path = lovelace-ajax
 	url = git@github.com:mvheimburg/lovelace-ajax.git
+[submodule "lovelace-appliance-panel"]
+	path = lovelace-appliance-panel
+	url = git@github.com:mvheimburg/lovelace-appliance-panel.git

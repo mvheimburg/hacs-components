@@ -37,6 +37,15 @@ and the integration README for setup and migration from existing helpers.
 This frontend-only package uses the third-party [Aegis for Ajax integration](https://github.com/bvis/aegis-hass).
 See the [approved design](docs/superpowers/specs/2026-09-17-aegis-panel-design.md).
 
+## Appliances
+
+| Submodule | What it is |
+| --- | --- |
+| [`lovelace-appliance-panel`](lovelace-appliance-panel/) | Home Connect Local cards for ovens (with microwave/steam modules), dishwashers, coffee machines, refrigerators and a kitchen overview. Visual editors and default/Bubble appearances included. |
+
+Cards work directly with Home Connect Local; staged presets are a separate future
+integration. See the [design](docs/superpowers/specs/2026-09-17-appliance-panel-design.md).
+
 ```bash
 git clone --recurse-submodules git@github.com:mvheimburg/hacs-components.git
 ```
