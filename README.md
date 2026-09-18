@@ -22,10 +22,12 @@ is a git submodule with its own CI and automatic releases.
 | Submodule | What it is |
 | --- | --- |
 | [`house-state`](house-state/) | The `house_state` integration: a configurable tree of household states, scene inheritance, overlays and automation roles. |
-| [`lovelace-house-state`](lovelace-house-state/) | The Lovelace card: state controls, a tree editor, scene mapping and automation settings, with default and Bubble appearances. |
+| [`lovelace-house-state`](lovelace-house-state/) | The Lovelace card: state and overlay controls, Apply scene now and a link to integration settings, with default and Bubble appearances. |
 
-The integration owns the state machine and scene calls; the card uses its
-entities and services. See the [approved design](docs/superpowers/specs/2026-09-17-house-state-tree.md)
+The integration owns the state machine, scene calls and configuration under
+Settings → Devices & services → House State → Configure. The card uses its
+entities and services for everyday actions. See the [settings plan](docs/superpowers/plans/2026-09-18-house-state-settings.md),
+the [original design](docs/superpowers/specs/2026-09-17-house-state-tree.md)
 and the integration README for setup and migration from existing helpers.
 
 ## Ajax / Aegis
@@ -62,3 +64,7 @@ git clone --recurse-submodules git@github.com:mvheimburg/hacs-components.git
 
 See each submodule's README for installation, services, events and card
 configuration.
+
+All card packages support English and Norwegian Bokmål, following the Home
+Assistant user's language. Source identifiers, configuration keys and service
+values remain English; custom names are preserved.
