@@ -31,3 +31,9 @@
 [submodule "doorbell-integration"]
 	path = doorbell-integration
 	url = https://github.com/mvheimburg/doorbell-integration.git
+[submodule "water-guard"]
+	path = water-guard
+	url = git@github.com:mvheimburg/water-guard.git
+[submodule "lovelace-water-guard"]
+	path = lovelace-water-guard
+	url = git@github.com:mvheimburg/lovelace-water-guard.git
