@@ -1,8 +1,18 @@
 # Working in this repository
 
 This is an umbrella repository for Home Assistant integrations and Lovelace cards.
-Each component is an independently shipped git submodule. These guidelines apply
-throughout the workspace; also read any component-specific instructions.
+Every component here is a separate subrepository and an independently installable
+HACS repository, tracked by the umbrella as a git submodule. Each has its own
+Git history, HACS metadata, version, documentation, CI and release lifecycle.
+Integrations use the HACS Integration category; Lovelace cards use the Dashboard
+category. The umbrella coordinates these repositories and is not itself a HACS
+installation package.
+
+Treat each component as independently distributable: its repository must contain
+everything needed for its own installation and release. Run commands and make
+component commits inside the appropriate subrepo, then update its gitlink in the
+umbrella. These guidelines apply throughout the workspace; also read any
+component-specific instructions.
 
 ## Cards are for everyday use
 
