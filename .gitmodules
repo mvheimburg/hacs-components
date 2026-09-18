@@ -25,3 +25,6 @@
 [submodule "lovelace-heatpump"]
 	path = lovelace-heatpump
 	url = https://github.com/mvheimburg/lovelace-heatpump.git
+[submodule "appliance-presets"]
+	path = appliance-presets
+	url = https://github.com/mvheimburg/appliance-presets.git

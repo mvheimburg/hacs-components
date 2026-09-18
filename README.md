@@ -43,10 +43,12 @@ See the [approved design](docs/superpowers/specs/2026-09-17-aegis-panel-design.m
 
 | Submodule | What it is |
 | --- | --- |
+| [`appliance-presets`](appliance-presets/) | The `appliance_presets` integration: named multi-step programmes (preheat, timed steps, hold) with scheduling from a ready time, remote-start checks, safety guards and a sidebar panel for editing presets. |
 | [`lovelace-appliance-panel`](lovelace-appliance-panel/) | Home Connect Local cards for ovens (with microwave/steam modules), dishwashers, coffee machines, refrigerators and a kitchen overview. Visual editors and default/Bubble appearances included. |
 
-Cards work directly with Home Connect Local; staged presets are a separate future
-integration. See the [design](docs/superpowers/specs/2026-09-17-appliance-panel-design.md).
+The cards work directly with Home Connect Local and do not need the presets
+integration. See the [design](docs/superpowers/specs/2026-09-17-appliance-panel-design.md)
+and the presets README.
 
 ## Heat pump
 
