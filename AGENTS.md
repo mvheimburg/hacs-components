@@ -143,3 +143,12 @@ component-specific instructions.
 - Commit component changes in their own repositories, then update umbrella
   submodule references. Inspect each repository's state and preserve unrelated
   work. Pushes to `main` can trigger releases: do not publish unless authorized.
+- Every component repository needs a GitHub description and topics; HACS shows
+  the description and validation expects topics. When creating a repository,
+  or when either is missing, give the owner a ready-to-run
+  `gh repo edit <owner>/<repo> --description "…" --add-topic …` command (or run
+  it if `gh` is authenticated). Always include `home-assistant`,
+  `homeassistant` and `hacs`; add `hacs-integration` for integrations, or
+  `hacs-dashboard`, `lovelace`, `lovelace-card` and `lovelace-custom-card` for
+  cards; then a few topics naming what the component is about. Base the
+  description on the README's first paragraph.
