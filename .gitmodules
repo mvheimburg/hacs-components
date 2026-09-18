@@ -28,3 +28,6 @@
 [submodule "appliance-presets"]
 	path = appliance-presets
 	url = https://github.com/mvheimburg/appliance-presets.git
+[submodule "doorbell-integration"]
+	path = doorbell-integration
+	url = https://github.com/mvheimburg/doorbell-integration.git
