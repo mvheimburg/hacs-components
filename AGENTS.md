@@ -1,12 +1,31 @@
 # Working in this repository
 
-This is an umbrella repository for Home Assistant integrations and Lovelace cards.
-Every component here is a separate subrepository and an independently installable
-HACS repository, tracked by the umbrella as a git submodule. Each has its own
-Git history, HACS metadata, version, documentation, CI and release lifecycle.
-Integrations use the HACS Integration category; Lovelace cards use the Dashboard
-category. The umbrella coordinates these repositories and is not itself a HACS
-installation package.
+This is an umbrella repository for Home Assistant integrations, Lovelace cards
+and Home Assistant apps (formerly add-ons). Every component here is a separate
+subrepository, tracked by the umbrella as a git submodule. Each has its own Git
+history, version, documentation, CI and release lifecycle. Integrations and cards
+are independently installable HACS repositories: integrations use the HACS
+Integration category; Lovelace cards use the Dashboard category. The umbrella
+coordinates these repositories and is not itself a HACS installation package.
+
+An app may be a subrepo here only when it works through a HACS integration: a
+companion integration in this workspace, or an existing HACS integration it is
+built for. Apps install from an app repository in the app store, not through
+HACS. Keep the split clear:
+
+- The integration owns what Home Assistant sees and relies on: entities, devices,
+  config entries, services, events, runtime state machines, scheduling and
+  safety behavior. It must keep working while the app is stopped, restarting or
+  not installed, and fail clearly when the app's features are unavailable.
+- The app owns what Home Assistant cannot reasonably host: heavy dependencies, a
+  database, large content or media, and ingress UI for that content. It talks to
+  Home Assistant through the integration's public API, not by writing entity
+  states directly, and must not run a competing state machine.
+- Apps only run on Home Assistant OS and Supervised installations. Anything core
+  to the integration's purpose must therefore not depend on an app.
+- Give the app its own version, changelog, CI and release process, and document
+  which integration versions it is compatible with. Document the pairing in both
+  READMEs.
 
 Treat each component as independently distributable: its repository must contain
 everything needed for its own installation and release. Run commands and make
