@@ -39,6 +39,16 @@ and the integration README for setup and migration from existing helpers.
 This frontend-only package uses the third-party [Aegis for Ajax integration](https://github.com/bvis/aegis-hass).
 See the [approved design](docs/superpowers/specs/2026-09-17-aegis-panel-design.md).
 
+## Water Guard
+
+| Submodule | What it is |
+| --- | --- |
+| [`water-guard`](water-guard/) | The `water_guard` integration: a latched leak alert that reaches chosen people's phones, optional water shut-off, and **Override: open water**. |
+| [`lovelace-water-guard`](lovelace-water-guard/) | The card: calm status, the red leak alert with sensors, valves and who was reached, and the confirmed override. Default and Bubble appearances. |
+
+The integration owns the alert, pushes and valves, and keeps working without the
+card. House State only switches the water for vacation and guests.
+
 ## Appliances
 
 | Submodule | What it is |
