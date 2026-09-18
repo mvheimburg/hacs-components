@@ -46,6 +46,16 @@ See the [approved design](docs/superpowers/specs/2026-09-17-aegis-panel-design.m
 Cards work directly with Home Connect Local; staged presets are a separate future
 integration. See the [design](docs/superpowers/specs/2026-09-17-appliance-panel-design.md).
 
+## Heat pump
+
+| Submodule | What it is |
+| --- | --- |
+| [`lovelace-heatpump`](lovelace-heatpump/) | myVAILLANT heat pump card: comfort and quick veto, hot-water tank and boost, legionella reminders, measured heating/hot-water COP and outdoor-temperature plots. Visual editor, separate panel modes, English/Bokmål and default/Bubble appearances. |
+
+Uses the third-party [myPyllant integration](https://github.com/signalkraft/mypyllant-component)
+and Home Assistant long-term statistics. See the [approved design](docs/superpowers/specs/2026-09-18-heatpump-design.md)
+and the card README for statistics coverage and installation.
+
 ```bash
 git clone --recurse-submodules git@github.com:mvheimburg/hacs-components.git
 ```

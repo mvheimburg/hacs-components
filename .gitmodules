@@ -22,3 +22,6 @@
 [submodule "lovelace-appliance-panel"]
 	path = lovelace-appliance-panel
 	url = git@github.com:mvheimburg/lovelace-appliance-panel.git
+[submodule "lovelace-heatpump"]
+	path = lovelace-heatpump
+	url = https://github.com/mvheimburg/lovelace-heatpump.git
