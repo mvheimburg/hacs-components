@@ -30,6 +30,12 @@ entities and services for everyday actions. See the [settings plan](docs/superpo
 the [original design](docs/superpowers/specs/2026-09-17-house-state-tree.md)
 and the integration README for setup and migration from existing helpers.
 
+## Doors and gates
+
+| Submodule | What it is |
+| --- | --- |
+| [`lovelace-access-control`](lovelace-access-control/) | The house's doors and gates in one card: overall lock status, the last door panel event, lock/unlock and gate controls with confirmation, in the House State card's style. Works with any `lock` and `cover` entities. |
+
 ## Ajax / Aegis
 
 | Submodule | What it is |

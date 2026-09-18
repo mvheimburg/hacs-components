@@ -37,3 +37,6 @@
 [submodule "lovelace-water-guard"]
 	path = lovelace-water-guard
 	url = git@github.com:mvheimburg/lovelace-water-guard.git
+[submodule "lovelace-access-control"]
+	path = lovelace-access-control
+	url = git@github.com:mvheimburg/lovelace-access-control.git
