@@ -109,6 +109,23 @@ component-specific instructions.
   both default and Bubble appearances where the package offers them. Use HA and
   existing theme variables rather than assuming a particular dashboard palette.
 
+## Entity identifiers
+
+- When a user names something in a config flow (a wakeup alarm, a school
+  alert, a guarded water supply, a house), that name becomes a device, and every
+  entity ID is `<domain>.<slug of the name>_<key>`: "Lila" gives
+  `sensor.lila_wakeup`, "Hytta" gives `binary_sensor.hytta_leak`. The key is a
+  short, fixed English word per entity (`wakeup`, `school`, `leak`, `override`,
+  `state`, `preset`), chosen once and documented in the README.
+- Produce this with `has_entity_name = True`, a device named after the entry,
+  and `suggested_object_id` returning the key. Never let a translated entity name
+  shape the ID: an ID must be the same whatever language Home Assistant runs in.
+  The friendly name may stay translated or be just the entered name.
+- The rule applies when an entity is first created. Never rename existing
+  entity IDs in a migration or on an entry rename: automations and dashboards
+  depend on them. Test the new ID under a non-English HA language, and that a
+  pre-registered entity keeps its ID.
+
 ## Implementation and verification
 
 - Keep packages self-contained: no runtime imports across sibling submodules.
