@@ -63,7 +63,16 @@ component-specific instructions.
   device's power switch also sits in the header, top right, beside Configure.
   When the settings belong to our integration, Configure may link to its
   integration page instead.
-- Existing cards may predate this split. Apply it to new work and deliberate
+- A sensor value shown on a card is a tappable button that opens a **history
+  view** in the card's own style: one chart of that reading together with the
+  related readings the card shows (for example a valve with its room, outdoor
+  and flow temperatures; a heat pump's flow, flow target, outdoor temperature
+  and pressure), from Home Assistant's recorder. Offer 6 h, 24 h and 7 d; read
+  values under the pointer; let the legend open each entity's more-info; leave
+  unavailable spells as gaps; give a second scale to a reading in another unit.
+  Exceptions are allowed where a history adds nothing (for example a static
+  setting or a timestamp), but say so when making one.
+- Existing cards may predate these rules. Apply it to new work and deliberate
   refactors; do not silently broaden an unrelated change into a migration.
 
 ## English code, localized presentation
