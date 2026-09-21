@@ -40,3 +40,6 @@
 [submodule "lovelace-access-control"]
 	path = lovelace-access-control
 	url = git@github.com:mvheimburg/lovelace-access-control.git
+[submodule "lovelace-thermostat-valve"]
+	path = lovelace-thermostat-valve
+	url = https://github.com/mvheimburg/lovelace-thermostat-valve.git

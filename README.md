@@ -66,13 +66,14 @@ The cards work directly with Home Connect Local and do not need the presets
 integration. See the [design](docs/superpowers/specs/2026-09-17-appliance-panel-design.md)
 and the presets README.
 
-## Heat pump
+## Heating and cooling
 
 | Submodule | What it is |
 | --- | --- |
-| [`lovelace-heatpump`](lovelace-heatpump/) | myVAILLANT heat pump card: comfort and quick veto, hot-water tank and boost, legionella reminders, measured heating/hot-water COP and outdoor-temperature plots. Visual editor, separate panel modes, English/Bokmål and default/Bubble appearances. |
+| [`lovelace-heatpump`](lovelace-heatpump/) | myVAILLANT heat pump card: comfort and quick veto, an optional heating/cooling switch for your own entity, hot-water tank and boost, legionella reminders, measured heating/hot-water COP and outdoor-temperature plots. Visual editor, separate panel modes, English/Bokmål and default/Bubble appearances. |
+| [`lovelace-thermostat-valve`](lovelace-thermostat-valve/) | Compact one-row card for any room thermostat: heating/cooling state, valve opening and a −/+ target stepper. Visual editor, English/Bokmål and default/Bubble appearances. |
 
-Uses the third-party [myPyllant integration](https://github.com/signalkraft/mypyllant-component)
+The heat pump card uses the third-party [myPyllant integration](https://github.com/signalkraft/mypyllant-component)
 and Home Assistant long-term statistics. See the [approved design](docs/superpowers/specs/2026-09-18-heatpump-design.md)
 and the card README for statistics coverage and installation.
 

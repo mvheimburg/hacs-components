@@ -28,6 +28,7 @@ const REPOSITORIES = {
     "lovelace-heatpump",
     "lovelace-house-state",
     "lovelace-personal-wakeup",
+    "lovelace-thermostat-valve",
     "lovelace-time-for-school",
     "lovelace-water-guard",
   ],
