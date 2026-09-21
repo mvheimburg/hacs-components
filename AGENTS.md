@@ -57,6 +57,12 @@ component-specific instructions.
 - Frontend-only cards for third-party integrations use the APIs those integrations
   expose. Keep necessary card bindings in the Lovelace editor; do not invent a
   backend configuration flow that the third-party integration does not provide.
+- Keep the card face lean. Settings a household does not change every day go
+  behind a **Configure** button: a 44px round cog at the top right of the card
+  header, opening a dialog or collapsible panel in the card's own style. A
+  device's power switch also sits in the header, top right, beside Configure.
+  When the settings belong to our integration, Configure may link to its
+  integration page instead.
 - Existing cards may predate this split. Apply it to new work and deliberate
   refactors; do not silently broaden an unrelated change into a migration.
 
