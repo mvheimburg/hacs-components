@@ -86,3 +86,11 @@ configuration.
 All card packages support English and Norwegian Bokmål, following the Home
 Assistant user's language. Source identifiers, configuration keys and service
 values remain English; custom names are preserved.
+
+## Adding everything to HACS
+
+Each component is its own HACS custom repository. To add them all at once, open
+Home Assistant in a browser as an admin, open the developer console (F12 →
+Console), and paste [`scripts/hacs-add-all.js`](scripts/hacs-add-all.js). Then
+install the components you want from HACS. `python3 scripts/check-hacs-list.py`
+checks that the script lists every HACS submodule.

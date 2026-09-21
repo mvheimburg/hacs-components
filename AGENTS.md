@@ -152,3 +152,8 @@ component-specific instructions.
   `hacs-dashboard`, `lovelace`, `lovelace-card` and `lovelace-custom-card` for
   cards; then a few topics naming what the component is about. Base the
   description on the README's first paragraph.
+- Every HACS component submodule must be listed in `scripts/hacs-add-all.js`,
+  under `integration` or `plugin` (HACS's name for Dashboard), so the owner can
+  add all custom repositories to HACS in one step. When adding, renaming or
+  removing a submodule, update that list in the same umbrella commit and run
+  `python3 scripts/check-hacs-list.py`; it must pass.
