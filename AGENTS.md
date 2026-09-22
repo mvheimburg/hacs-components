@@ -158,6 +158,23 @@ component-specific instructions.
 - Run the affected package's required tests, lint, typecheck and build. Rebuild
   tracked distributions when source changes. Keep package/lockfile versions and
   integration manifest/project versions consistent with their release process.
+- Integration CI runs **hassfest**, and a failure blocks the release: a push to
+  `main` then publishes nothing. Run it locally before pushing any change to
+  `manifest.json`, `strings.json`/translations, `services.yaml` or a component's
+  `async_setup`, and fix every error. Known traps: manifest keys must be
+  `domain`, `name`, then the rest in alphabetical order (a new key such as
+  `after_dependencies` goes straight after `name`); an integration with
+  `async_setup` needs `CONFIG_SCHEMA` (e.g.
+  `cv.config_entry_only_config_schema(DOMAIN)`); importing another component
+  (`frontend`, `http`, `panel_custom`, `websocket_api`, …) needs it in
+  `dependencies` or `after_dependencies`. To run hassfest, sparse-clone
+  `home-assistant/core` at the installed HA version (`git clone --depth 1
+  --filter=blob:none --sparse --branch <version> …; git sparse-checkout set
+  script`), then from that clone run `PYTHONPATH=. python -m script.hassfest
+  --integration-path <repo>/custom_components/<domain>` with the test
+  environment's Python and `ruff` on `PATH`. It must report
+  `Invalid integrations: 0`. After pushing, confirm the release tag appears; a
+  missing tag means CI failed.
 - Update the component README when behavior or setup changes. When configuration
   moves, document where users now find it and any minimum integration version.
 - Commit component changes in their own repositories, then update umbrella
