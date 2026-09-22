@@ -45,10 +45,15 @@ component-specific instructions.
 - Put integration setup and structural configuration under **Settings → Devices
   & services → the integration → Configure**, using structured forms and entity
   selectors. Avoid requiring users to edit JSON for normal setup.
+- When setup is too rich for step-by-step forms, the integration may also ship
+  its own admin **configuration panel** (a sidebar page served by the
+  integration, not a card), editing a draft through the integration's websocket
+  API with the same validation as the Configure flow. House State does this.
 - For House State, this includes the state tree, scene mappings, occupancy,
   default children, roles, overlays and rules, triggers and schedules. The card
   provides state/overlay selection, status, vacation confirmation and **Apply
-  scene now**. Its settings cog links to the integration page.
+  scene now**. Its settings cog opens the integration's own House State
+  configuration panel (the integration page when the panel is unavailable).
 - The Lovelace editor owns card-specific choices: entity/device selection, title,
   appearance, visible sections and interaction preferences. A dashboard action
   may update an integration setting through its public API when that is a useful
