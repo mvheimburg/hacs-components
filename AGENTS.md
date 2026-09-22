@@ -133,8 +133,8 @@ component-specific instructions.
 
 - When a user names something in a config flow (a wakeup alarm, a school
   alert, a guarded water supply, a house), that name becomes a device, and every
-  entity ID is `<domain>.<slug of the name>_<key>`: "Lila" gives
-  `sensor.lila_wakeup`, "Hytta" gives `binary_sensor.hytta_leak`. The key is a
+  entity ID is `<domain>.<slug of the name>_<key>`: "Sam" gives
+  `sensor.sam_wakeup`, "Hytta" gives `binary_sensor.hytta_leak`. The key is a
   short, fixed English word per entity (`wakeup`, `school`, `leak`, `override`,
   `state`, `preset`), chosen once and documented in the README.
 - Produce this with `has_entity_name = True`, a device named after the entry,
