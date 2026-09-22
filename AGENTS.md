@@ -175,6 +175,11 @@ component-specific instructions.
   environment's Python and `ruff` on `PATH`. It must report
   `Invalid integrations: 0`. After pushing, confirm the release tag appears; a
   missing tag means CI failed.
+- Published images (README screenshots, docs previews, demo pages) must use
+  generic dummy data with no link to the owner's real home: no real people,
+  room, light, device or place names, entity IDs, addresses or schedules. Name
+  things generically ("Soverom 1", "Kjøkken", "Taklampe"). Check the demo
+  fixtures before regenerating screenshots.
 - Update the component README when behavior or setup changes. When configuration
   moves, document where users now find it and any minimum integration version.
 - Commit component changes in their own repositories, then update umbrella
