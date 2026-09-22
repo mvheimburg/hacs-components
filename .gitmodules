@@ -46,3 +46,6 @@
 [submodule "lovelace-light-group"]
 	path = lovelace-light-group
 	url = https://github.com/mvheimburg/lovelace-light-group.git
+[submodule "lovelace-climate"]
+	path = lovelace-climate
+	url = https://github.com/mvheimburg/lovelace-climate.git
