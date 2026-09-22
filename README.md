@@ -30,6 +30,12 @@ entities and services for everyday actions. See the [settings plan](docs/superpo
 the [original design](docs/superpowers/specs/2026-09-17-house-state-tree.md)
 and the integration README for setup and migration from existing helpers.
 
+## Lighting
+
+| Submodule | What it is |
+| --- | --- |
+| [`lovelace-light-group`](lovelace-light-group/) | Group lights by room and floor, toggle individual lights, adjust brightness and turn a zone off. Visual editor, English/Bokmål, Default/Bubble appearances and shared color schemes; no companion integration or Bubble Card dependency. |
+
 ## Doors and gates
 
 | Submodule | What it is |

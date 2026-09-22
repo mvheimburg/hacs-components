@@ -27,6 +27,7 @@ const REPOSITORIES = {
     "lovelace-appliance-panel",
     "lovelace-heatpump",
     "lovelace-house-state",
+    "lovelace-light-group",
     "lovelace-personal-wakeup",
     "lovelace-thermostat-valve",
     "lovelace-time-for-school",

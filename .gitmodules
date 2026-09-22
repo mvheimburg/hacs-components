@@ -43,3 +43,6 @@
 [submodule "lovelace-thermostat-valve"]
 	path = lovelace-thermostat-valve
 	url = https://github.com/mvheimburg/lovelace-thermostat-valve.git
+[submodule "lovelace-light-group"]
+	path = lovelace-light-group
+	url = https://github.com/mvheimburg/lovelace-light-group.git
