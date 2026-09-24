@@ -33,6 +33,20 @@ component commits inside the appropriate subrepo, then update its gitlink in the
 umbrella. These guidelines apply throughout the workspace; also read any
 component-specific instructions.
 
+## Component icons
+
+- Every custom integration and Lovelace card must have a recognizable brand
+  icon, displayed in its README. Integrations must bundle their icons in
+  `custom_components/<domain>/brand/` so Home Assistant 2026.3 and later can
+  display them locally: `icon.png` (256 × 256) and `icon@2x.png` (512 × 512).
+  Include matching `dark_icon.png` and `dark_icon@2x.png` when a separate
+  dark-theme version is needed.
+- An integration and its matching Lovelace card must share the same icon
+  artwork. Reuse the integration's `icon@2x.png` for the card's README icon,
+  and update both repositories together when changing it. Keep a real copy in
+  each repository so both remain independently distributable; do not use
+  cross-repository runtime imports or symlinks.
+
 ## Cards are for everyday use
 
 - Design cards around the household's tasks: understand the current state, see
