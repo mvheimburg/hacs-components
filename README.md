@@ -95,6 +95,27 @@ All card packages support English and Norwegian Bokmål, following the Home
 Assistant user's language. Source identifiers, configuration keys and service
 values remain English; custom names are preserved.
 
+## Shared history
+
+[`lovelace-card-history`](lovelace-card-history/) supplies the recorder history
+view used by House State, Appliance Panel, Access Control, Water Guard,
+Heatpump, Thermostat Valve, AJAX, Climate and Light Group. Each card bundles its
+own copy, with 6 h / 24 h / 7 d ranges, keyboard and pointer inspection,
+English/Bokmål labels and more-info links from its legend.
+
+Heatpump retains its daily COP chart and longer statistics ranges. Climate
+retains its per-unit chart layout and historical unit-change handling.
+Thermostat valve opening and AJAX battery readings retain fixed 0–100% scales.
+Light Group opens history from a light’s state or brightness; the controls icon
+beside Close opens Home Assistant’s controls.
+
+Wakeup and school schedule timestamps remain exceptions: plotting future
+scheduled times would not add useful measurement history.
+
+The current coordinated update vendors the versioned library archive in each
+card repository so `npm ci` works without a sibling checkout or an unpublished
+GitHub tag. Library and card repositories still release independently.
+
 ## Adding everything to HACS
 
 Each component is its own HACS custom repository. To add them all at once, open
