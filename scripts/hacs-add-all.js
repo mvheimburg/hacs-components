@@ -25,6 +25,7 @@ const REPOSITORIES = {
     "lovelace-access-control",
     "lovelace-ajax",
     "lovelace-appliance-panel",
+    "lovelace-card-history",
     "lovelace-climate",
     "lovelace-heatpump",
     "lovelace-house-state",

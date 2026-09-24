@@ -49,3 +49,6 @@
 [submodule "lovelace-climate"]
 	path = lovelace-climate
 	url = https://github.com/mvheimburg/lovelace-climate.git
+[submodule "lovelace-card-history"]
+	path = lovelace-card-history
+	url = git@github.com:mvheimburg/lovelace-card-history.git
