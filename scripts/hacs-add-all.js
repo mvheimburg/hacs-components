@@ -15,6 +15,7 @@ const REPOSITORIES = {
   integration: [
     "appliance-presets",
     "doorbell-integration",
+    "home-theater",
     "house-state",
     "personal-wakeup",
     "time-for-school",

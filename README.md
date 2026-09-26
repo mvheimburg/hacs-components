@@ -40,6 +40,7 @@ and the integration README for setup and migration from existing helpers.
 
 | Submodule | What it is |
 | --- | --- |
+| [`home-theater`](home-theater/) | Integration: one device per room for an LG webOS TV, an AV receiver and the players behind their inputs. A room media player showing what is actually playing, sources switched on both devices, Wake-on-LAN, a source sensor, a remote whose arrow keys follow the source, and an ARC problem sensor. |
 | [`lovelace-home-theater`](lovelace-home-theater/) | One card per room for an LG webOS TV and an AV receiver (Denon AVR): a shared power button, source chips that switch both devices, arrow keys, receiver volume, an ARC check and a Wake-on-LAN hint. Visual editor, English/Bokmål, Default/Bubble appearances; no companion integration. |
 
 ## Doors and gates

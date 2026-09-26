@@ -55,3 +55,6 @@
 [submodule "lovelace-home-theater"]
 	path = lovelace-home-theater
 	url = https://github.com/mvheimburg/lovelace-home-theater.git
+[submodule "home-theater"]
+	path = home-theater
+	url = https://github.com/mvheimburg/home-theater.git
