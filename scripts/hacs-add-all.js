@@ -28,6 +28,7 @@ const REPOSITORIES = {
     "lovelace-card-history",
     "lovelace-climate",
     "lovelace-heatpump",
+    "lovelace-home-theater",
     "lovelace-house-state",
     "lovelace-light-group",
     "lovelace-personal-wakeup",

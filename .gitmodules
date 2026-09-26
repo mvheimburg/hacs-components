@@ -52,3 +52,6 @@
 [submodule "lovelace-card-history"]
 	path = lovelace-card-history
 	url = git@github.com:mvheimburg/lovelace-card-history.git
+[submodule "lovelace-home-theater"]
+	path = lovelace-home-theater
+	url = https://github.com/mvheimburg/lovelace-home-theater.git

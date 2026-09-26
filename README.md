@@ -36,6 +36,12 @@ and the integration README for setup and migration from existing helpers.
 | --- | --- |
 | [`lovelace-light-group`](lovelace-light-group/) | Group lights by room and floor, toggle individual lights, adjust brightness and turn a zone off. Visual editor, English/Bokmål, Default/Bubble appearances and shared color schemes; no companion integration or Bubble Card dependency. |
 
+## TV and audio
+
+| Submodule | What it is |
+| --- | --- |
+| [`lovelace-home-theater`](lovelace-home-theater/) | One card per room for an LG webOS TV and an AV receiver (Denon AVR): a shared power button, source chips that switch both devices, arrow keys, receiver volume, an ARC check and a Wake-on-LAN hint. Visual editor, English/Bokmål, Default/Bubble appearances; no companion integration. |
+
 ## Doors and gates
 
 | Submodule | What it is |
