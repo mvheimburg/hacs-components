@@ -40,8 +40,16 @@ and the integration README for setup and migration from existing helpers.
 
 | Submodule | What it is |
 | --- | --- |
+| [`audio-zone`](audio-zone/) | Integration: media players activate an amplifier zone's power, mute and input controls; pause-to-mute and longer power-off timers. Native volume ramps stay on the zone server. |
+| [`lovelace-audio-zone`](lovelace-audio-zone/) | Embedded Audio Zone configuration for an Automations dashboard: player/input bindings, controls and timers with draft Save/Cancel, English/Bokmål and Default/Bubble appearances. |
 | [`home-theater`](home-theater/) | Integration: one device per room for an LG webOS TV, an AV receiver and the players behind their inputs. A room media player showing what is actually playing, sources switched on both devices, Wake-on-LAN, a source sensor, a remote whose arrow keys follow the source, and an ARC problem sensor. |
 | [`lovelace-home-theater`](lovelace-home-theater/) | One card per room for an LG webOS TV and an AV receiver (Denon AVR): a shared power button, source chips that switch both devices, arrow keys, receiver volume, an ARC check and a Wake-on-LAN hint. Visual editor, English/Bokmål, Default/Bubble appearances; no companion integration. |
+
+Audio Zone can be configured through integration Configure without a card.
+Its optional native gentle-start button needs a compatible zone-server feature;
+the proposed osdweb extension is specified in
+[`audio-zone/docs/osdweb-gentle-start.md`](audio-zone/docs/osdweb-gentle-start.md).
+That server extension is not implemented by these repositories.
 
 ## Doors and gates
 

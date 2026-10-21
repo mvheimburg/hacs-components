@@ -58,3 +58,9 @@
 [submodule "home-theater"]
 	path = home-theater
 	url = https://github.com/mvheimburg/home-theater.git
+[submodule "audio-zone"]
+	path = audio-zone
+	url = https://github.com/mvheimburg/audio-zone.git
+[submodule "lovelace-audio-zone"]
+	path = lovelace-audio-zone
+	url = https://github.com/mvheimburg/lovelace-audio-zone.git

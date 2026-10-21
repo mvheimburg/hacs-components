@@ -14,6 +14,7 @@ const REPOSITORIES = {
   // HACS category "Integration"
   integration: [
     "appliance-presets",
+    "audio-zone",
     "doorbell-integration",
     "home-theater",
     "house-state",
@@ -26,6 +27,7 @@ const REPOSITORIES = {
     "lovelace-access-control",
     "lovelace-ajax",
     "lovelace-appliance-panel",
+    "lovelace-audio-zone",
     "lovelace-card-history",
     "lovelace-climate",
     "lovelace-heatpump",
