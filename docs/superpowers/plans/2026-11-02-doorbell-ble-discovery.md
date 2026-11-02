@@ -23,10 +23,10 @@ Renamed entities must work. Other users' devices must stay separate. Disabled/un
 
 ## Task 2: Explicit draft import
 
-- [ ] Verify panel iBeacon format from its API or maintainer-provided contract.
-- [ ] Add browser tests for explicit import, saved service payload, preservation/cancel, user switching, empty states and English/Bokmål.
-- [ ] Extend HaUser type and existing users form with candidate select and apply button, using existing controls and translations.
-- [ ] Document behavior in README and design context; run frontend lint/typecheck/browser tests/build and backend suite.
-- [ ] Review, commit component changes, then commit docs and umbrella gitlink. Do not publish.
+- [x] Verify maintainer contract: lowercase compact UUID hex, decimal major/minor 0–65535, no leading zeros.
+- [x] Add browser tests for explicit import, saved service payload, preservation/cancel, user switching, empty states and English/Bokmål.
+- [x] Extend HaUser type and existing users form with candidate select and apply button, using existing controls and translations.
+- [x] Document README and DESIGN.md; Python lint and 106 tests pass; frontend lint/typecheck, 37 browser tests and build pass. Mobile light/dark screenshots and keyboard import checked.
+- [x] Independent review found no issues; component committed and umbrella gitlink updated. Nothing published.
 
-Backend milestone complete. UI import awaits the panel API format: the documented door_monitor repository returns 404 through the connected GitHub tool and public access. The Companion source confirms UUID_major_minor. No panel format conversion has been implemented.
+The maintainer supplied the panel format. Backend normalization and explicit draft import are implemented. Independent review found no issues. The panel still lacks automatic BLE presence login; UI and README state this limitation. Browser viewport/keyboard tests required adding @types/node as a development-only dependency for Vitest browser declarations.

@@ -18,6 +18,11 @@ Automatic replacement on selection needs fewer clicks but can overwrite an exist
 
 Backend tests cover ownership, renamed sensors, missing/invalid/unavailable data, multiple devices, deduplication and admin-only access. Browser tests cover applying a candidate, preserving manual values, switching users, cancellation, saved payloads and both languages. Run Python tests/lint and frontend tests/lint/typecheck/build; commit the rebuilt bundle and update the umbrella gitlink.
 
-## Implementation detail to verify
+## Confirmed beacon contract
 
-Confirm the doorbell's accepted iBeacon value format against its API before translating the Companion app UUID/major/minor representation. No guessed identifier conversion.
+The maintainer confirmed `uuidhex_major_minor`: 32 lowercase UUID hex characters without hyphens,
+then decimal major and minor (0–65535) without leading zeros, separated by underscores. Matching
+is exact and case-sensitive. For example `00112233445566778899aabbccddeeff_1_513`.
+The integration normalizes the Companion app identity before offering it to the form. The panel
+currently imports/scans BLE identities but automatic BLE presence login is not wired in; state
+this limitation in the form and README.
