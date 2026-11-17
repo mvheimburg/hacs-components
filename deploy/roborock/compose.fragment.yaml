@@ -1,0 +1,35 @@
+# Merge this service into an existing Docker Compose / Portainer standalone stack.
+# Build the unmodified upstream v1.2.1 image first; see README.nb.md.
+# Mosquitto runs inside this container in embedded mode; only MQTT/TLS 8881 is published.
+services:
+  roborock-local-server:
+    image: local/roborock-local-server:1.2.1
+    pull_policy: never
+    restart: unless-stopped
+    ports:
+      - "${ROBOROCK_BIND_ADDRESS:?Set the Docker server LAN address}:555:555/tcp"
+      - "${ROBOROCK_BIND_ADDRESS:?Set the Docker server LAN address}:8881:8881/tcp"
+    volumes:
+      - type: bind
+        source: ${ROBOROCK_SERVER_ROOT:?Set the upstream checkout path}/config.toml
+        target: /app/config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ROBOROCK_SERVER_ROOT:?Set the upstream checkout path}/data
+        target: /data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ROBOROCK_SERVER_ROOT:?Set the upstream checkout path}/secrets
+        target: /run/secrets
+        read_only: true
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: ["CMD", "curl", "-skf", "https://127.0.0.1:555/admin"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

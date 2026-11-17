@@ -64,3 +64,9 @@
 [submodule "lovelace-audio-zone"]
 	path = lovelace-audio-zone
 	url = https://github.com/mvheimburg/lovelace-audio-zone.git
+[submodule "roborock-companion"]
+	path = roborock-companion
+	url = https://github.com/mvheimburg/roborock-companion.git
+[submodule "lovelace-roborock"]
+	path = lovelace-roborock
+	url = https://github.com/mvheimburg/lovelace-roborock.git

@@ -138,3 +138,15 @@ Home Assistant in a browser as an admin, open the developer console (F12 →
 Console), and paste [`scripts/hacs-add-all.js`](scripts/hacs-add-all.js). Then
 install the components you want from HACS. `python3 scripts/check-hacs-list.py`
 checks that the script lists every HACS submodule.
+
+## Roborock
+
+| Submodule | What it is |
+| --- | --- |
+| [`roborock-companion`](roborock-companion/) | Optional integration and admin configuration panel using the official Roborock runtime, with calibrated map views and capability-gated tools. |
+| [`lovelace-roborock`](lovelace-roborock/) | Daily controls, room selection, maps and sensor history; English/Bokmål and default/Bubble appearances. |
+
+The upstream local server runs separately in an existing Docker support stack.
+See the [Norwegian setup and traffic guide](docs/roborock-local-setup.nb.md) and
+[Compose example](deploy/roborock/README.nb.md). Advanced Saros commands require
+live model verification; the initial implementation does not claim full LocalRock parity.
