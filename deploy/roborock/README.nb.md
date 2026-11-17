@@ -1,96 +1,147 @@
-# Roborock i eksisterende Docker-stack
+# Roborock med egen MQTT-broker i Docker-stacken
 
-Dette oppsettet passer en lokal støttestack med tjenester som Music Assistant,
-mens Home Assistant OS kjører i en egen Proxmox-VM. HA Core 2026.11.1 støtter
-manuell serveradresse. Saros 20 Sonic-firmwaren oppgitt av eieren er 02.58.82.
+Home Assistant OS kjører i Proxmox-VM-en. På Docker-serveren, i samme
+støttestack som for eksempel Music Assistant, kjører to egne tjenester:
 
-Roborock-serveren blir en egen Compose-tjeneste med innebygd MQTT og egne data.
-Ikke koble den til Music Assistant sin konfigurasjon eller en eksisterende MQTT-
-broker for første installasjon. Dette er standard upstream-server, ikke en fork.
+- `roborock-local-server`: standard upstream-server v1.2.1, HTTPS og MQTT/TLS.
+- `roborock-mqtt`: dedikert Mosquitto 2.1.2 i egen container med eget datavolum.
 
-MQTT har ingen separat tjeneste i Compose fordi **Mosquitto kjører inne i samme
-container** som lokalserveren. Docker-imaget installerer Mosquitto, og serveren
-starter prosessen når `config.toml` har denne modusen:
+```mermaid
+flowchart LR
+  HA[HA i Proxmox] <-->|HTTPS 555 og MQTT TLS 8881| RR[roborock-local-server]
+  ROBOT[Saros 20 Sonic] <-->|HTTPS og MQTT TLS| RR
+  RR <-->|MQTT 1883 på internt Docker-nett| MQTT[roborock-mqtt]
+```
+
+Bare lokalserveren publiserer porter på Docker-serverens LAN-IP. Mosquitto har
+ingen publisert verts-/LAN-port og er bare tilkoblet det interne nettverket
+`roborock_mqtt`. Den bruker ikke HA sin vanlige MQTT-broker. Roborock-serveren
+har også et vanlig Docker-nettverk for HTTPS/TLS, kontoimport og sertifikatfornyelse.
+
+Dette bruker upstreams støttede **eksterne broker-modus**. Serverimaget inneholder
+fortsatt Mosquitto-binæren, men starter ikke den innebygde brokerprosessen i denne
+modusen. Ingen fork eller endring av HA-integrasjonen er nødvendig.
+
+## 1. Klargjør standardserveren
+
+På Docker-serveren: velg en varig katalog og installer `uv` etter upstreams
+veiledning. HA Core 2026.11.1 støtter manuell serveradresse; eierens Saros 20
+Sonic har oppgitt firmware 02.58.82.
+
+```bash
+git clone --branch v1.2.1 --depth 1 https://github.com/Python-roborock/local_roborock_server.git /srv/roborock-local-server
+cd /srv/roborock-local-server
+uv sync
+uv run roborock-local-server configure
+mkdir -p data secrets mqtt
+docker build -t local/roborock-local-server:1.2.1 .
+curl -fsSL https://raw.githubusercontent.com/mvheimburg/roborock-companion/main/deploy/roborock/mosquitto.conf -o mqtt/mosquitto.conf
+```
+
+Bruk et kort `api-...`-navn, EU-region, porter `555`/`8881`, lokale admin-/
+protokollpassord og riktig sertifikatvalg. Byggingen henter vanlige basisbilder
+og avhengigheter. Brokerimaget er versjonslåst til den offisielle taggen
+`eclipse-mosquitto:2.1.2-alpine`.
+
+## 2. Sett ekstern broker i config.toml
+
+Rediger den **eksisterende** `[broker]`-seksjonen i konfigurasjonen fra veiviseren:
 
 ```toml
 [broker]
-mode = "embedded"
-host = "127.0.0.1"
-port = 18830
+mode = "external"
+host = "roborock-mqtt"
+port = 1883
+enable_topic_bridge = true
 ```
 
-Dette er felter i den genererte `config.toml`, ikke Compose-miljøvariabler. Behold
-resten av konfigurasjonen fra veiviseren. `18830` er en intern brokerport som ikke
-skal publiseres. Robot og HA bruker serverens MQTT/TLS-endepunkt på **8881**;
-serveren formidler trafikken videre til Mosquitto. Det trengs ingen ekstra
-Mosquitto-container og ingen kobling til HA sin vanlige MQTT-broker.
+Behold øvrige server-, TLS-, innloggings- og lagringsfelt. Dette er TOML-felter,
+ikke Compose-miljøvariabler. Serveren bruker Docker-tjenestens navn som DNS-navn.
+Robot og HA bruker fortsatt `ssl://DITT_API_NAVN:8881`, aldri `roborock-mqtt:1883`.
 
-Kilde: [Dockerfile v1.2.1](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/Dockerfile),
-[oppstart av innebygd broker](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/src/roborock_local_server/server.py#L1900)
-og [konfigurasjonsstandarder](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/src/roborock_local_server/config.py#L226).
+Den medfølgende `mosquitto.conf` tillater anonyme backend-klienter fordi serverens
+topic bridge bruker en slik forbindelse. Dette er avgrenset til det egne interne
+Docker-nettverket; TLS/protokollinnlogging håndteres av Roborock-serveren foran
+brokeren. La brokeren være uten `ports:`, og knytt bare disse to tjenestene til
+`roborock_mqtt`. Ikke bruk denne konfigurasjonen på en LAN-eksponert fellesbroker.
 
-1. På Docker-serveren: velg en varig katalog, for eksempel
-   `/srv/roborock-local-server`, og installer `uv` etter upstream-veiledningen.
-   Klon standardserverens utgitte kildekode til katalogen:
+## 3. Legg begge tjenestene i stacken
 
-   ```bash
-   git clone --branch v1.2.1 --depth 1 https://github.com/Python-roborock/local_roborock_server.git /srv/roborock-local-server
-   cd /srv/roborock-local-server
-   uv sync
-   uv run roborock-local-server configure
-   mkdir -p data secrets
-   docker build -t local/roborock-local-server:1.2.1 .
-   ```
+Ta backup av stackfilen og `config.toml`. Fra `compose.fragment.yaml`, flett inn:
 
-   Bruk et kort `api-...`-navn, region `eu`, porter `555`/`8881`, innebygd MQTT,
-   egne lokale admin-/protokollpassord og riktig sertifikatvalg i veiviseren.
-   Git-utgaven er låst til v1.2.1; byggingen henter fortsatt sine ordinære
-   basisbilder/dependenser. Den lokale imagetagen er ikke en signatur.
+- begge tjenestene under eksisterende `services:`;
+- `roborock_mqtt` under eksisterende `networks:`;
+- `roborock_mqtt_data` under eksisterende `volumes:`.
 
-2. Ta backup av den eksisterende stackfilen. Kopier **tjenesten** fra
-   `compose.fragment.yaml` inn under dens eksisterende `services:`. Ikke legg til
-   en ny `services:`-nøkkel nederst hvis filen allerede har en.
+Opprett seksjonene hvis de mangler; ha én toppnivånøkkel av hver type. Behold
+stackens eksisterende `default`-nettverk hvis det allerede er definert. Brokerens
+navngitte datavolum får Compose-prosjektets/stackens prefiks automatisk.
 
-3. Sett `ROBOROCK_BIND_ADDRESS` til Docker-serverens LAN-IP og
-   `ROBOROCK_SERVER_ROOT` til den absolutte katalogen fra steg 1. I vanlig Compose
-   kan de ligge i stackens `.env`; i Portainer setter du dem i stackens
-   miljøvariabler. `create_host_path: false` skal hindre at en manglende
-   `config.toml` stille blir opprettet som katalog.
+Sett følgende i stackens `.env`, eller som stack-miljøvariabler i Portainer:
 
-4. Kontroller og start bare den nye tjenesten i den eksisterende stacken:
+```dotenv
+ROBOROCK_BIND_ADDRESS=192.168.10.20
+ROBOROCK_SERVER_ROOT=/srv/roborock-local-server
+```
 
-   ```bash
-   docker compose config --quiet
-   docker compose up -d roborock-local-server
-   docker compose ps roborock-local-server
-   docker compose logs --tail 100 roborock-local-server
-   ```
+IP-adressen er et eksempel: bruk Docker-serverens faktiske LAN-IP, ikke HA-VM-ens
+IP. `ROBOROCK_SERVER_ROOT` må være en absolutt katalog på Docker-serveren.
+`config.toml`, `data/`, `secrets/` og `mqtt/mosquitto.conf` må finnes; manglende
+bind-filer skal gi en feil fremfor å bli opprettet som kataloger.
 
-   Portene må være ledige på valgt IP. Eksemplet binder dem til LAN-adressen,
-   ikke alle nettverksgrensesnitt. Ingen host-nettverk, privilegert container,
-   Docker-socket eller internettportviderekobling trengs. Compose-eksemplet er
-   for vanlig Compose/Portainer standalone, ikke et ferdig Docker Swarm-oppsett.
+## 4. Start broker og server
 
-5. Lokal DNS: `api-...` skal peke på **Docker-serveren**, ikke HA-VM-en og ikke
-   Proxmox-verten med mindre Docker faktisk kjører der. Kontroller DNS og begge
-   portene fra robotens VLAN og fra HA-VM-en. Åpne `https://DITT_NAVN:555/admin`.
-   Healthcheckens `-k` gjelder kun containerens lokale livstegn; HA, robot og
-   onboarding skal bruke et gyldig sertifikat og korrekt navn.
+```bash
+docker compose config --quiet
+docker compose up -d --force-recreate roborock-local-server
+docker compose ps roborock-mqtt roborock-local-server
+docker compose logs --tail 100 roborock-mqtt roborock-local-server
+```
 
-6. Følg [hele oppskriften](../../docs/roborock-local-setup.nb.md) fra kontoimport,
-   sammenkobling og HA-oppsett. HA-integrasjonen bruker Manual og den lokale
-   HTTPS-adressen. Roboten skal kunne nå lokal DNS og serveren, med WAN blokkert.
+Compose starter `roborock-mqtt` som avhengighet og venter på dens MQTT-healthcheck
+før serveren starter. Healthchecken sender en tom QoS 1-melding på et eget
+helsetopic, uten retained-flagg. Andre tjenester i stacken behøver ikke restartes.
+Ved senere endringer i den bind-monterte `config.toml` må serveren restartes eller
+opprettes på nytt for å lese inn filen. I Portainer brukes tilsvarende oppdatering/
+gjenoppretting av Roborock-tjenesten.
 
-7. Backup: ta med `config.toml`, `secrets/` og `data/`. Behandle dem som hemmelige
-   hjemmedata. Planlegg også sertifikatfornyelse. Ved oppdatering tar du backup og
-   bygger en valgt upstream-utgave bevisst; `pull_policy: never` skal forhindre at
-   en vanlig stackstart henter en ny serverversjon automatisk.
+Hvis du allerede kjører med innebygd broker, stopp `roborock-local-server` før du
+bytter broker-modus. Behold serverens `data/` og `secrets/`; ikke slett eller
+kopier den gamle brokerens database over den nye. Den nye brokeren starter med
+tomme MQTT-sesjoner, så klientene må koble til på nytt. Kontroller kontakt, kart
+og status etter omstart før du tar i bruk automatiseringer.
 
-Ikke blokker hele Docker-vertens Internett for å isolere Roborock; andre tjenester
-kan trenge det. Robotens WAN sperres i ruteren. Begrens servercontainerens utgående
-trafikk separat etter import, med nødvendige unntak for valgt sertifikatfornyelse.
-Dette eksemplet er kildekontrollert og kan valideres med Compose; det er ikke
-allerede deployert eller nettverksverifisert på eierens server.
+Portene `555` og `8881` må være ledige på valgt LAN-IP. Mosquitto-port `1883`
+skal ikke publiseres. Ingen host-nettverk, privilegert container, Docker-socket
+eller internettportviderekobling trengs. Fragmentet gjelder Compose/Portainer
+standalone, ikke Docker Swarm.
 
-[Upstream Compose](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/compose.yaml),
-[upstream installasjon](https://github.com/Python-roborock/local_roborock_server/blob/main/docs/installation.md).
+## 5. DNS, HA og videre oppsett
+
+Lokal DNS for `api-...` skal peke på **Docker-serveren**. Kontroller DNS og portene
+fra både robotens VLAN og HA-VM-en. Åpne `https://DITT_NAVN:555/admin`.
+Serverens healthcheck bruker `-k` kun internt; robot, HA og onboarding skal bruke
+korrekt navn og et gyldig sertifikat.
+
+Følg [hele oppskriften](../../docs/roborock-local-setup.nb.md) for kontoimport,
+sammenkobling og HA-oppsett. Den offisielle Roborock-integrasjonen bruker
+**Manual** med lokalserverens adresse. Ingen ekstra HA MQTT-integrasjon behøves
+for denne Roborock-brokeren.
+
+## 6. Backup og oppdatering
+
+Ta med `config.toml`, `secrets/`, `data/`, `mqtt/mosquitto.conf` og det navngitte
+Docker-volumet `roborock_mqtt_data` i stackens backup. Brokerdata tas konsistent
+mens brokeren er stoppet, eller med et egnet konsistent volum-snapshot. Behandle
+kopiene som private hjemmedata. Planlegg sertifikatfornyelse og velg oppdateringer
+av både server- og brokerimage bevisst.
+
+Robotens WAN sperres i ruteren. Begrens servercontainerens utgående trafikk etter
+import med nødvendige unntak for sertifikatfornyelse; andre tjenester på
+Docker-verten kan fortsatt trenge Internett. Eksemplet er kildekontrollert og
+Compose-validert, men ikke deployert eller nettverksverifisert på eierens server.
+
+Kilder: [ekstern broker i upstream v1.2.1](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/src/roborock_local_server/server.py#L1900),
+[broker-konfigurasjon](https://github.com/Python-roborock/local_roborock_server/blob/v1.2.1/src/roborock_local_server/config.py#L226),
+[offisielle Mosquitto-imager](https://github.com/docker-library/official-images/blob/master/library/eclipse-mosquitto)
+og [Mosquitto-konfigurasjon](https://mosquitto.org/man/mosquitto-conf-5.html).

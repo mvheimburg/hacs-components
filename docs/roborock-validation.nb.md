@@ -3,16 +3,16 @@
 Kontrollert 17. november 2026.
 
 **Publisert etter eiers godkjenning:** Begge komponentene er nå utgitt som
-v0.1.0. GitHub-beskrivelser og topics er satt, og CI/Release er grønne i begge
+v0.1.1. GitHub-beskrivelser og topics er satt, og CI/Release er grønne i begge
 repoene. Tidligere notater nedenfor om manglende publisering beskriver tilstanden
 før denne godkjenningen. Ingen utrulling til eierens HA eller robot er utført.
 
-- [Roborock Companion v0.1.0](https://github.com/mvheimburg/roborock-companion/releases/tag/v0.1.0)
-- [Lovelace Roborock v0.1.0](https://github.com/mvheimburg/lovelace-roborock/releases/tag/v0.1.0)
+- [Roborock Companion v0.1.1](https://github.com/mvheimburg/roborock-companion/releases/tag/v0.1.1)
+- [Lovelace Roborock v0.1.1](https://github.com/mvheimburg/lovelace-roborock/releases/tag/v0.1.1)
 
 Lovelace-utgivelsens JavaScript er byteidentisk med det lokale bygget. Alle
 filene i integrasjonens publiserte ZIP er sammenlignet med lokal kildekode;
-manifestet oppgir 0.1.0. Komponentenes tagger peker på publiserte main-commits.
+manifestet oppgir 0.1.1. Komponentenes tagger peker på publiserte main-commits.
  Dette er en første implementasjon med eksplisitte
 begrensninger, ikke full LocalRock-paritet eller en attest på robotens firmware.
 
@@ -72,3 +72,22 @@ Lokale rettelsescommits: companion `41a2283`, Lovelace `81dc655`. Komponentene
 er ennå ikke publisert eller deployert. Det opprinnelige målet om full
 LocalRock-konfigurasjon på Saros er fortsatt ufullført; dette er en begrenset
 førsteversjon som kan gjennomgås og installeres manuelt.
+
+## Separat broker i v0.1.1
+
+Eierens valgte Docker-oppsett har nå to tjenester: standardserver v1.2.1 og
+`roborock-mqtt` med offisiell Mosquitto 2.1.2-alpine. Serveren bruker ekstern
+broker-modus; Mosquitto har eget persistent volum og internt nettverk uten
+publisert verts-/LAN-port. Robot og HA bruker fortsatt serverens TLS-port 8881.
+
+Kontrollert: Compose-skjema, nettverk, porter, broker-healthcheck, avhengighet og
+identiske selvstendige pakkekopier. Upstreams uendrede v1.2.1-konfigurasjonsleser
+aksepterte oppsettet. En lokal Mosquitto 2.0.18-prosess bestod QoS 1-healthcheck,
+publisering/abonnement og bevart retained-melding etter omstart. Dette er ikke en
+kjøring av det valgte Docker-imaget 2.1.2; ingen Docker-daemon eller eiernett var
+tilgjengelig for den testen.
+
+Alle 44 backend-, 14 kort- og 9 paneltester, lint, typekontroll, formatering,
+bygg og lokal HA 2026.11.1-hassfest bestod. CI og Release på GitHub er grønne i
+begge repoene for v0.1.1. Publiserte ZIP-/JS-filer er kontrollert mot lokal
+kildekode/bygg. Ingen endring er deployert på eierens server.

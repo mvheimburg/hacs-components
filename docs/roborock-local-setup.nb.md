@@ -30,7 +30,11 @@ flowchart LR
     UI[Lovelace og stort konfigurasjonspanel]
     C[Roborock Companion]
     HA[Offisiell Roborock-integrasjon i HA]
-    S[Lokal Roborock-server HTTPS og MQTT]
+    subgraph STACK[Docker-støttestack]
+      S[Lokal Roborock-server HTTPS og MQTT TLS]
+      M[roborock-mqtt Mosquitto]
+      S <-->|MQTT 1883 på internt Docker-nett| M
+    end
     R[Saros 20 Sonic]
     DNS[Lokal DNS og eventuelt lokal tidstjeneste]
     PC --> UI
@@ -169,26 +173,33 @@ ikke vilkårlig IP eller HA sitt andre domenenavn.
 [Appveiledning](https://github.com/Python-roborock/local_roborock_server/blob/main/docs/home_assistant.md),
 [faktiske felt i appversjon 1.2.1](https://github.com/Python-roborock/local_roborock_server/blob/main/roborock_local_server_addon/config.yaml).
 
-## 3B. Alternativ med Docker
+## 3B. Docker med separat MQTT-broker
 
-På Linux-maskinen/VM-en, installer Docker Compose og `uv` etter leverandørenes
-instruksjoner. Bruk standardserverens konfigurasjonsveiviser:
+Dette er det valgte oppsettet: `roborock-local-server` og en egen
+`roborock-mqtt`-container i støttestacken, koblet sammen over et internt
+Docker-nettverk. Bruk [den komplette stackoppskriften](../deploy/roborock/README.nb.md)
+og de medfølgende Compose-/Mosquitto-filene. Den beskriver oppretting av
+serverkonfigurasjon, bygging av standardserveren og fletting inn i eksisterende stack.
 
-```bash
-git clone --branch v1.2.1 --depth 1 https://github.com/Python-roborock/local_roborock_server.git
-cd local_roborock_server
-uv sync
-uv run roborock-local-server configure
-docker compose up -d --build
+Den eksisterende `[broker]`-seksjonen i `config.toml` settes til:
+
+```toml
+[broker]
+mode = "external"
+host = "roborock-mqtt"
+port = 1883
+enable_topic_bridge = true
 ```
 
-I veiviseren bruker du samme servernavn, porter, EU-region, sertifikatvalg,
-adminpassord og lokale protokollinnlogging som i 3A. Bruk innebygd MQTT til
-første oppsett; dette krever ingen endring i en eksisterende HA MQTT-installasjon.
-Hvis egne sertifikater brukes, skal de ligge i den monterte katalogen og
-konfigurasjonen peke til containerstiene, ikke verts-PC-ens private stier.
-Åpne deretter `/admin` på servernavnet som i 3A.
-[Docker-oppsett](https://github.com/Python-roborock/local_roborock_server/blob/main/docs/installation.md).
+Behold resten av konfigurasjonen fra upstream-veiviseren. Robot og HA kobles
+fortsatt mot lokalserverens MQTT/TLS-port **8881**, ikke direkte mot Mosquitto.
+Brokerens `1883` har ingen publisert verts-/LAN-port. Dette krever ingen endring
+av en eksisterende HA MQTT-installasjon og ingen fork av standardserveren.
+
+I veiviseren bruker du samme servernavn, EU-region, sertifikatvalg og lokale
+admin-/protokollinnlogging som i 3A. Ved egne sertifikater må filene ligge i den
+monterte katalogen, og konfigurasjonen må bruke containerstiene. Åpne deretter
+`/admin` på servernavnet som i 3A.
 
 ## 4. Importer eksisterende robot
 

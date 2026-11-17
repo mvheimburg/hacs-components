@@ -252,3 +252,13 @@ fixture/browser tests; do not call untested Saros operations supported.
 - LocalRock scope: https://github.com/DonSidro/LocalRock
 - LocalRock edit safeguards: https://github.com/DonSidro/LocalRock/blob/master/composeApp/src/commonMain/kotlin/com/kodraliu/localrock/shared/vacuum/MapEditCommands.kt
 - Saros report (local-server transport only): https://github.com/Python-roborock/local_roborock_server/issues/217#issuecomment-6504895070
+
+## Deployment update — 2026-11-17
+
+The owner prefers an explicit MQTT service in the existing support stack. The
+Docker recipe now uses a dedicated `roborock-mqtt` Mosquitto container, private
+internal Docker network and persistent named volume. Standard server v1.2.1 uses
+its existing external-broker mode at `roborock-mqtt:1883`; robot/HA TLS endpoints
+remain at the server on 8881. No server fork or HA integration change is needed.
+Migration and backup instructions include the separate broker. Runtime validation
+on the owner's Docker host remains outstanding.
